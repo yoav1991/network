@@ -16,40 +16,52 @@
 
 ## 快速使用
 
-### 方法 1：立即优化（推荐）
+### 推荐：智能优化（定位具体原因）
 
-双击运行 `optimize_now.bat`，一键清理所有网络缓存。
-
-### 方法 2：设置定时自动优化
-
-双击运行 `setup_scheduled_task.bat`，设置自动定期清理。
-
-建议间隔：
-- 长时间运行的电脑：每 30 分钟
-- 普通使用：每 1-2 小时
-
-### 方法 3：使用完整监控工具
-
-PowerShell 版本（无需 Python）：
 ```
-run_monitor_ps.bat
+run_smart_optimize.bat
 ```
 
-Python 版本：
+**逐一测试每个优化项的效果，帮你找出导致网页变慢的具体原因。**
+
+示例输出：
 ```
-run_monitor.bat
+【综合效果测试结果】
+
+1. DNS 缓存清理
+   HTTP 改善: +28.5% [有效]
+
+2. ARP 缓存清理
+   HTTP 改善: +3.2% [轻微]
+
+3. NetBIOS 缓存清理
+   HTTP 改善: +0.5% [无效]
+
+结论: DNS 缓存膨胀是主要原因
+建议: 定期清理 DNS 缓存
+```
+
+### 备选：一键优化（不定位原因）
+
+```
+optimize_now.bat
+```
+
+### 定时自动优化
+
+```
+setup_scheduled_task.bat
 ```
 
 ## 工具文件说明
 
 | 文件 | 说明 |
 |------|------|
-| `optimize_now.bat` | 立即执行网络优化 |
+| `run_smart_optimize.bat` | **智能优化** - 逐项测试定位原因 (推荐) |
+| `optimize_now.bat` | 一键优化 - 清理所有缓存 |
 | `setup_scheduled_task.bat` | 设置定时自动优化任务 |
-| `run_monitor.bat` | 启动 Python 版监控工具 |
-| `run_monitor_ps.bat` | 启动 PowerShell 版监控工具 |
-| `network_monitor.py` | Python 完整监控程序 |
-| `NetworkMonitor.ps1` | PowerShell 完整监控程序 |
+| `smart_optimize.py` | 智能优化核心程序 |
+| `run_monitor_ps.bat` | PowerShell 版监控工具 |
 
 ## 功能特性
 

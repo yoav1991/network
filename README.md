@@ -36,33 +36,40 @@
 
 ## 快速开始
 
-### 方法 1：一键快速修复（推荐）
+### 推荐：智能诊断（定位具体问题）
 
-双击运行 `quick_fix.bat`，自动执行以下修复：
-- 禁用系统代理
-- 重置 WinHTTP 代理
-- 刷新 DNS 缓存
-- 重置 Winsock 和 TCP/IP 栈
+```
+run_smart_diagnose.bat
+```
 
-### 方法 2：使用 PowerShell 版本（无需 Python）
+**特点：逐步测试每个可能的原因，修复后立即验证效果，最终告诉你具体是什么问题。**
 
-双击运行 `run_doctor_ps.bat`，启动图形化诊断工具。
+```
+【诊断流程】
+1. 测试当前网络状态 → 发现 HTTP 失败
+2. 检测各项配置 → 发现系统代理已启用
+3. 尝试修复: 禁用系统代理
+4. 测试效果 → HTTP 恢复正常
+5. 结论: 问题原因是"系统代理被篡改"
+```
 
-### 方法 3：使用 Python 版本（完整功能）
+### 备选：一键修复（不定位原因）
 
-1. 确保已安装 [Python 3.6+](https://www.python.org/downloads/)
-2. 双击运行 `run_doctor.bat`
+```
+quick_fix.bat
+```
+
+一次性执行所有修复操作，适合快速解决问题但不关心原因的场景。
 
 ## 工具说明
 
 | 文件 | 说明 |
 |------|------|
-| `quick_fix.bat` | 一键快速修复脚本，解决大多数问题 |
+| `run_smart_diagnose.bat` | **智能诊断** - 逐步定位问题原因 (推荐) |
+| `quick_fix.bat` | 一键修复 - 执行所有修复操作 |
 | `disable_proxy.bat` | 仅禁用代理设置 |
-| `run_doctor_ps.bat` | 启动 PowerShell 版诊断工具 |
-| `run_doctor.bat` | 启动 Python 版诊断工具 |
-| `NetworkDoctor.ps1` | PowerShell 版完整诊断工具 |
-| `network_doctor.py` | Python 版完整诊断工具 |
+| `run_doctor_ps.bat` | PowerShell 版诊断工具 |
+| `smart_diagnose.py` | 智能诊断核心程序 |
 
 ## 功能特性
 
@@ -171,28 +178,40 @@ netsh int ip reset
 
 ## 快速使用
 
-### 立即优化
+### 推荐：智能优化（定位具体原因）
+
+```
+monitor/run_smart_optimize.bat
+```
+
+**特点：逐一测试每个优化项的效果，找出对你的电脑最有效的优化操作。**
+
+```
+【优化流程】
+1. 测试基准性能 → HTTP 响应 1500ms
+2. 清理 DNS 缓存 → 测试效果 → 提升 30%
+3. 清理 ARP 缓存 → 测试效果 → 无明显变化
+4. 结论: DNS 缓存膨胀是主要原因，建议定期清理
+```
+
+### 备选：一键优化（不定位原因）
+
 ```
 monitor/optimize_now.bat
 ```
 
-### 设置定时自动优化（推荐）
+### 自动定时优化
+
 ```
 monitor/setup_scheduled_task.bat
 ```
 
-### 完整监控工具
-```
-monitor/run_monitor_ps.bat
-```
-
 ## 功能特性
 
-- **实时监控**：DNS解析时间、Ping延迟、HTTP响应时间
-- **资源监控**：TCP连接数、缓存条目数、内存使用率
-- **一键优化**：清理 DNS/ARP/NetBIOS 缓存
-- **定时任务**：支持设置自动定期清理
-- **性能对比**：优化前后效果对比
+- **单项测试**：分别测试每个优化项的效果
+- **综合测试**：自动测试所有优化项，找出最有效的
+- **效果对比**：优化前后性能数据对比
+- **日志记录**：保存诊断结果供后续参考
 
 详细说明请查看 [monitor/README.md](monitor/README.md)
 

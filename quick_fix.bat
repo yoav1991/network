@@ -3,12 +3,22 @@ chcp 65001 >nul 2>&1
 title 网络快速修复工具
 
 :: 检查管理员权限
-net session >nul 2>&1
-if %errorLevel% neq 0 (
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+if '%errorlevel%' NEQ '0' (
     echo 正在请求管理员权限...
-    powershell -Command "Start-Process '%~f0' -Verb RunAs"
-    exit /b
-)
+    goto UACPrompt
+) else ( goto gotAdmin )
+
+:UACPrompt
+    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
+    "%temp%\getadmin.vbs"
+    exit /B
+
+:gotAdmin
+    if exist "%temp%\getadmin.vbs" ( del "%temp%\getadmin.vbs" )
+    pushd "%CD%"
+    CD /D "%~dp0"
 
 echo ============================================================
 echo           Windows 网络快速修复工具
